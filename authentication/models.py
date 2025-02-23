@@ -18,6 +18,17 @@ class CustomUser(AbstractUser):
     
     def __str__(self):
         return self.email
+    
+    def save(self, *args, **kwargs):
+        if self.user_type == 'Admin' or self.user_type == 'Super Admin':
+            self.is_superuser = True
+            self.is_staff = True
+        if self.user_type == 'Staff':
+            self.is_staff = True
+        if self.user_type == 'Customer':
+            self.is_superuser = False
+            self.is_staff = False
+        super().save(*args, **kwargs)
 
 
 class Customer(models.Model):
@@ -31,8 +42,7 @@ class Customer(models.Model):
     
     def __str__(self):
         return self.name
-
-
+    
 class Role(models.Model):
     name = models.CharField(max_length=255, unique=True)
     can_read = models.BooleanField(default=False)
