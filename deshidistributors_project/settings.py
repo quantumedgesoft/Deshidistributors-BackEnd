@@ -30,9 +30,7 @@ INSTALLED_APPS = [
     'corsheaders', 'django_extensions', 'django_filters',
     
     #Custom Apps
-    'authentication', 
-    
-    
+    'authentication', 'product',
 ]
 
 REST_FRAMEWORK = {
